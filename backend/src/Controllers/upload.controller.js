@@ -2,8 +2,8 @@ import Upload from "../Models/upload.model.js";
 import upload from "../../Config/multer.js";
 import xlsx from "xlsx";
 import fs from "fs";
+import ParsedData from "../Models/parseData.model.js";
 
-//upload file
 export const fileUpload = async (req, res) => {
   upload.single("file")(req, res, async (err) => {
     if (err) {
@@ -33,11 +33,19 @@ export const fileUpload = async (req, res) => {
       const sheet = workBook.Sheets[sheetName];
       const jsonData = xlsx.utils.sheet_to_json(sheet);
 
+      //savind to parsedData
+      const savedData = await ParsedData.create({
+        upload: newUpload._id,
+        user: req.user._id,
+        sheetName: sheetName,
+        data: jsonData,
+      });
+
       return res.status(200).json({
         success: true,
         msg: "File uploaded successfully ",
         data: jsonData,
-        file: newUpload,
+        parsed: savedData,
       });
     } catch (error) {
       return res.status(500).json({ success: false, msg: error.message });
