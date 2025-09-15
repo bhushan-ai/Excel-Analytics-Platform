@@ -45,6 +45,17 @@ Make sure you have installed:
 
 ```bash
 cd backend
-npm install      # or yarn install
-# configure .env (database URL, API keys, etc)
-npm run dev      # or the start script
+npm install
+```
+# or
+```
+yarn install
+```
+# configure
+```
+.env (database URL, API keys, etc)
+```
+# or the start script
+```
+npm run dev  
+
