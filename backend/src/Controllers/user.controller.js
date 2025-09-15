@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.SECRET, { expiresIn: "24h" });
+  return jwt.sign({ id }, process.env.SECRET, { expiresIn: "20m" });
 };
 
 export const register = async (req, res) => {
   const { username, email, password, role } = req.body;
 
-  if ([username, password, email].some((field) => field?.trim() === "")) {
+  if (!username || !email || !password) {
     return res
       .status(400)
       .json({ success: false, msg: "All fields are required" });
@@ -51,25 +51,25 @@ export const register = async (req, res) => {
   const hashedPass = await bcrypt.hash(password, 10);
 
   try {
-    const newUser = await User.create({
+    const user = await User.create({
       username,
       email,
       password: hashedPass,
       role,
     });
-    const token = createToken(newUser._id);
+    const token = createToken(user._id);
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? none : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     return res.status(201).json({
       success: true,
       msg: "Account Created Successfully",
-      newUser,
+      user,
       token,
     });
   } catch (error) {
@@ -92,7 +92,7 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(403).json({ success: false, msg: "User not found " });
+      return res.status(403).json({ success: false, msg: "Email is invalid " });
     }
 
     const matchPass = await bcrypt.compare(password, user.password);
@@ -106,7 +106,7 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? none : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.status(200).json({

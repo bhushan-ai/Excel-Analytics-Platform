@@ -30,9 +30,9 @@ export const getExcelInsight = async (req, res) => {
  `;
 
     const aiAnalysis = await openai.chat.completions.create({
-      model: "anthropic/claude-3-sonnet",
+      model: "gpt-4o",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 500,
+      max_tokens: 400,
     });
 
     const insight = aiAnalysis.choices[0].message.content;
@@ -46,7 +46,7 @@ export const getExcelInsight = async (req, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: "Analysis by ai", ai: insight });
+      .json({ success: true, message: "Analysis by ai", data: insight });
   } catch (err) {
     res.status(500).json({ success: false, msg: err.message });
   }

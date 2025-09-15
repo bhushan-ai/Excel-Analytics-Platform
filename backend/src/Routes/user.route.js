@@ -14,6 +14,13 @@ const userRouter = express.Router();
 //public routes
 userRouter.post("/register", register);
 userRouter.post("/login", login);
+userRouter.get("/user-auth", authJWT, (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: "Authenticated User",
+    user: req.user,
+  });
+});
 
 //protected Routes
 userRouter.post("/logout", logout);

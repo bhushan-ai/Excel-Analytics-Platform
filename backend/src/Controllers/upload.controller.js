@@ -81,11 +81,12 @@ export const deleteFile = async (req, res) => {
 //get file
 
 export const getFile = async (req, res) => {
-  const fileId = req.params.id;
+  const { fileId } = req.params;
   if (!fileId) {
     return res.status(400).json({ success: false, msg: "file id not found" });
   }
   try {
+    const fileData = await ParsedData.findById(fileId).select("data");
     const file = await Upload.findById(fileId).select("filename size user");
     if (!file) {
       return res.status(400).json({ success: false, msg: "file not found" });
@@ -93,7 +94,8 @@ export const getFile = async (req, res) => {
     return res.status(200).json({
       success: true,
       file: file,
-      msg: "file fetched successfully",
+      fileData: fileData,
+      msg: "file and fileData fetched successfully",
     });
   } catch (error) {
     return res.status(500).json({ success: false, msg: error.message });

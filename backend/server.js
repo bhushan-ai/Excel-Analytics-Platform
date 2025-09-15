@@ -9,13 +9,20 @@ import uploadRoute from "./src/Routes/upload.route.js";
 import analysisRouter from "./src/Routes/aiAnalysis.route.js";
 import cookieParser from "cookie-parser";
 import historyRouter from "./src/Routes/history.route.js";
+import parseRoute from "./src/Routes/parseData.route.js";
 const app = express();
 const PORT = process.env.PORT || 8004;
 
-//middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
 app.use(express.static(path.resolve("./public")));
 
 app.get("/", (req, res) => {
@@ -27,6 +34,7 @@ app.use("/api/user", userRouter);
 app.use("/file", uploadRoute);
 app.use("/ai", analysisRouter);
 app.use("/user", historyRouter);
+app.use("/data", parseRoute);
 
 connectToDb()
   .then(() => {
