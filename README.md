@@ -47,15 +47,11 @@ Make sure you have installed:
 cd backend
 npm install
 ```
-# or
-```
-yarn install
-```
-# configure
+## configure
 ```
 .env (database URL, API keys, etc)
 ```
-# or the start script
+## start the script
 ```
 npm run dev  
 
