@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.resolve("./public")));
-app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   return res.send(`Api started on port ${PORT}`);
