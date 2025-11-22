@@ -23,7 +23,7 @@ userRouter.get("/user-auth", authJWT, (req, res) => {
 });
 
 //protected Routes
-userRouter.post("/logout", logout);
+userRouter.post("/logout", authJWT, logout);
 userRouter.get("/me", authJWT, getUser);
 userRouter.put("/profile", authJWT, updateUser);
 userRouter.put("/password", authJWT, changePassword);

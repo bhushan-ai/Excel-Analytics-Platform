@@ -250,3 +250,24 @@ export const getUser = async (req, res) => {
     return res.status(500).json({ success: false, msg: error.message });
   }
 };
+
+//check user is authenticated
+
+// export const checkAuth = async (req, res, next) => {
+//   const token = req.cookies.token;
+//   if (!token) {
+//     return res
+//       .status(200)
+//       .json({ success: true, msg: "User is not authenticated" });
+//   }
+
+//   try {
+//     const decodedToken = jwt.verify(token, process.env.SECRET);
+//     req.user = decodedToken;
+//     next();
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .json({ success: false, msg: "error in checkauth" + error.message });
+//   }
+// };
