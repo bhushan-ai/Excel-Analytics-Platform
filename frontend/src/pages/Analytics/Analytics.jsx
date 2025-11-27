@@ -47,18 +47,14 @@ function Analytics() {
             <SelectValue placeholder="Choose Chart Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none">None</SelectItem>
-            <SelectItem
-              className="font-bold"
-              onClick={() => openBarChart()}
-              value="bar"
-            >
-              Bar Chart{" "}
+            <SelectItem className="font-semibold" value="none">
+              None
             </SelectItem>
-            <SelectItem className="font-bold" value="pie">
+            <SelectItem className="font-semibold">Bar Chart </SelectItem>
+            <SelectItem className="font-semibold" value="pie">
               Pie Chart
             </SelectItem>
-            <SelectItem className="font-bold" value="line">
+            <SelectItem className="font-semibold" value="line">
               {" "}
               Line Chart
             </SelectItem>
@@ -67,7 +63,7 @@ function Analytics() {
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {chartType === "bar" && (
-          <div className="h-fit w-fit shadow-xl m-5 p-4">
+          <div className="h-fit w-fit shadow-xl m-5 p-5">
             <BarChart data={data.data} />
           </div>
         )}
