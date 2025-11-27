@@ -67,7 +67,7 @@ function Analytics() {
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {chartType === "bar" && (
-          <div className="h-fit w-fit shadow-xl m-5">
+          <div className="h-fit w-fit shadow-xl m-5 p-4">
             <BarChart data={data.data} />
           </div>
         )}
