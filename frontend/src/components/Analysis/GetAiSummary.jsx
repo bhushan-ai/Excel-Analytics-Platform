@@ -6,15 +6,15 @@ import { Skeleton } from "../ui/skeleton";
 import { getFileData } from "@/store/upload/uploadSlice";
 import { toast } from "react-toastify";
 
-function GetAiSummary() {
-  const [aiData, setAiData] = useState("");
-  const { uploadedFiles, data } = useSelector((state) => state.uploadFile);
-  const { isLoading } = useSelector((state) => state.aiSummary);
-  const [fileData, setFileData] = useState({});
+function GetAiSummary({aiData, setAiData , uploadedFiles, data,isLoading ,fileData, setFileData}) {
+  // const [aiData, setAiData] = useState("");
+ // const { uploadedFiles, data } = useSelector((state) => state.uploadFile);
+  // const { isLoading } = useSelector((state) => state.aiSummary);
+  // const [fileData, setFileData] = useState({});
 
-  console.log("slicedata", data);
 
-  console.log("uploade", uploadedFiles._id);
+
+
   const dispatch = useDispatch();
 
   function getAnalysis() {
@@ -80,6 +80,7 @@ function GetAiSummary() {
           className="w-full max-w-lg h-48 p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none bg-gray-50"
         />
       ) : null}
+      
     </div>
   );
 }
