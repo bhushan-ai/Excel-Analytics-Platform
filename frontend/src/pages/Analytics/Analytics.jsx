@@ -50,12 +50,13 @@ function Analytics() {
             <SelectItem className="font-semibold" value="none">
               None
             </SelectItem>
-            <SelectItem className="font-semibold">Bar Chart </SelectItem>
+            <SelectItem className="font-semibold" value="bar">
+              Bar Chart{" "}
+            </SelectItem>
             <SelectItem className="font-semibold" value="pie">
               Pie Chart
             </SelectItem>
             <SelectItem className="font-semibold" value="line">
-              {" "}
               Line Chart
             </SelectItem>
           </SelectContent>
@@ -63,11 +64,11 @@ function Analytics() {
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {chartType === "bar" && (
-          <div className="h-fit w-fit shadow-xl m-5 p-5">
+          <div className="h-fit w-fit shadow-xl p-3">
             <BarChart data={data.data} />
           </div>
         )}
-        <div> {chartType === "pie" && <Pie />}</div>
+        <div> {chartType === "pie" && <Pie data={data.data} />}</div>
         <div> {chartType === "line" && <Line />}</div>
       </div>
     </div>
