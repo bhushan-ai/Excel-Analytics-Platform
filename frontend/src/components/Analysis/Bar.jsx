@@ -16,6 +16,10 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 function BarChart({ data }) {
   let ref = useRef(null);
 
+  if (!Array.isArray(data) || data.length === 0) {
+    return <p>No data available</p>;
+  }
+
   const downloadBarChart = useCallback(() => {
     const link = document.createElement("a");
     link.download = "barChart.png";

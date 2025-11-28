@@ -1,34 +1,29 @@
-import Bar from "@/components/Analysis/Bar";
 import GetAiSummary from "@/components/Analysis/GetAiSummary";
-import Header from "@/components/Analysis/Header";
-import DynamicLine from "@/components/Analysis/Line";
 import Line from "@/components/Analysis/Line";
-import Pie from "@/components/Analysis/Pie";
+// import Pie from "@/components/Analysis/Pie";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import BarChart from "@/components/Analysis/Bar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 function Analytics() {
   const [aiData, setAiData] = useState("");
   const { uploadedFiles, data } = useSelector((state) => state.uploadFile);
   const { isLoading } = useSelector((state) => state.aiSummary);
   const [fileData, setFileData] = useState({});
-  const [chartType, setChartType] = useState("none");
+  const [showBarChart, setShowBarChart] = useState(false);
+
   console.log("slicedata", data);
 
-  console.log("uploade", uploadedFiles._id);
+  // console.log("uploade", uploadedFiles._id);
 
-  const { state } = useLocation();
-  const id = state?.id;
-  console.log("id", id);
+  function setShowChart() {
+    setShowBarChart(true);
+  }
+
+  // const { state } = useLocation();
+  // const id = state?.id;
+  // console.log("id", id);
 
   return (
     <div>
@@ -42,34 +37,19 @@ function Analytics() {
         setFileData={setFileData}
       />
       <div className="m-10 flex items-center justify-center gap-5">
-        <Select onValueChange={(value) => setChartType(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Choose Chart Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem className="font-semibold" value="none">
-              None
-            </SelectItem>
-            <SelectItem className="font-semibold" value="bar">
-              Bar Chart{" "}
-            </SelectItem>
-            <SelectItem className="font-semibold" value="pie">
-              Pie Chart
-            </SelectItem>
-            <SelectItem className="font-semibold" value="line">
-              Line Chart
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <Button onClick={() => setShowChart(true)}>Show Bar Chart</Button>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
-        {chartType === "bar" && (
-          <div className="h-fit w-fit shadow-xl p-3">
+        {showBarChart && (
+          <div className=" h-fit w-fit shadow-xl m-2 p-4">
             <BarChart data={data.data} />
           </div>
         )}
-        <div> {chartType === "pie" && <Pie data={data.data} />}</div>
-        <div> {chartType === "line" && <Line />}</div>
+        <div> {/* <Pie data={data.data} /> */}</div>
+        <div>
+          {" "}
+          <Line />
+        </div>
       </div>
     </div>
   );
