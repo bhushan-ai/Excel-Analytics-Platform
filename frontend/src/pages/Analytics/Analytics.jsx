@@ -12,13 +12,21 @@ function Analytics() {
   const { isLoading } = useSelector((state) => state.aiSummary);
   const [fileData, setFileData] = useState({});
   const [showBarChart, setShowBarChart] = useState(false);
+  const [showPieChart, setShowPieChart] = useState(false);
+  const [showLineChart, setShowLineChart] = useState(false);
 
   console.log("slicedata", data);
 
   // console.log("uploade", uploadedFiles._id);
 
-  function setShowChart() {
+  function barChart() {
     setShowBarChart(true);
+  }
+  function pieChart() {
+    setShowPieChart(true);
+  }
+  function lineChart() {
+    setShowLineChart(true);
   }
 
   // const { state } = useLocation();
@@ -37,7 +45,9 @@ function Analytics() {
         setFileData={setFileData}
       />
       <div className="m-10 flex items-center justify-center gap-5">
-        <Button onClick={() => setShowChart(true)}>Show Bar Chart</Button>
+        <Button onClick={() => barChart()}> Bar Chart</Button>
+        <Button onClick={() => pieChart()}> Pie Chart</Button>
+        <Button onClick={() => lineChart()}> Line Chart</Button>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {showBarChart && (
@@ -45,11 +55,18 @@ function Analytics() {
             <BarChart data={data.data} />
           </div>
         )}
-        <div> {/* <Pie data={data.data} /> */}</div>
-        <div>
-          {" "}
-          <Line />
-        </div>
+        {showPieChart && (
+          <div>
+            {" "}
+            <Pie data={data.data} />
+          </div>
+        )}
+        {showLineChart && (
+          <div>
+            {" "}
+            <Line />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export const getExcelInsight = async (req, res) => {
     const aiAnalysis = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 400,
+      max_tokens: 500,
     });
 
     const insight = aiAnalysis.choices[0].message.content;
