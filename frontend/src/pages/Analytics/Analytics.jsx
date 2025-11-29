@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 function Analytics() {
   const [aiData, setAiData] = useState("");
   const { uploadedFiles, data } = useSelector((state) => state.uploadFile);
+
+  const [savedData, setSavedData] = useState([]);
   const { isLoading } = useSelector((state) => state.aiSummary);
   const [fileData, setFileData] = useState({});
   const [showBarChart, setShowBarChart] = useState(false);
@@ -16,6 +18,12 @@ function Analytics() {
   const [showLineChart, setShowLineChart] = useState(false);
 
   console.log("slicedata", data);
+
+  useEffect(() => {
+    if (data?.data) {
+      localStorage.setItem("chartData", JSON.stringify(data.data));
+    }
+  }, [data]);
 
   // console.log("uploade", uploadedFiles._id);
 
@@ -29,9 +37,15 @@ function Analytics() {
     setShowLineChart(true);
   }
 
-  // const { state } = useLocation();
-  // const id = state?.id;
-  // console.log("id", id);
+  useEffect(() => {
+    if (data?.data) {
+      setSavedData(data.data);
+    } else {
+      const local = localStorage.getItem("chartData");
+      if (local) setSavedData(JSON.parse(local));
+    }
+  }, [data]);
+
 
   return (
     <div>
@@ -52,7 +66,7 @@ function Analytics() {
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {showBarChart && (
           <div className=" h-fit w-fit shadow-xl m-2 p-4">
-            <BarChart data={data.data} />
+            <BarChart data={savedData} />
           </div>
         )}
         {showPieChart && (
