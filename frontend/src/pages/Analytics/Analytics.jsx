@@ -1,10 +1,10 @@
 import GetAiSummary from "@/components/Analysis/GetAiSummary";
 import Line from "@/components/Analysis/Line";
-// import Pie from "@/components/Analysis/Pie";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import BarChart from "@/components/Analysis/Bar";
 import { Button } from "@/components/ui/button";
+import Pie from "@/components/Analysis/Pie";
 
 function Analytics() {
   const [aiData, setAiData] = useState("");
@@ -16,8 +16,6 @@ function Analytics() {
   const [showBarChart, setShowBarChart] = useState(false);
   const [showPieChart, setShowPieChart] = useState(false);
   const [showLineChart, setShowLineChart] = useState(false);
-
-  console.log("slicedata", data);
 
   useEffect(() => {
     if (data?.data) {
@@ -45,7 +43,8 @@ function Analytics() {
       if (local) setSavedData(JSON.parse(local));
     }
   }, [data]);
-
+  
+  console.log("ChartData", savedData);
 
   return (
     <div>
