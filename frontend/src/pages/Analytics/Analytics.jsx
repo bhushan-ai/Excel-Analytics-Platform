@@ -16,7 +16,27 @@ function Analytics() {
   const [showBarChart, setShowBarChart] = useState(false);
   const [showPieChart, setShowPieChart] = useState(false);
   const [showLineChart, setShowLineChart] = useState(false);
+  const [savedAiData, setSavedAiData] = useState("");
 
+  //save aiData locally
+  useEffect(() => {
+    if (aiData) {
+      localStorage.setItem("aiData", aiData);
+    }
+  }, [aiData]);
+
+  useEffect(() => {
+    if (aiData) {
+      setSavedAiData(aiData);
+    } else {
+      const local = localStorage.getItem("aiData");
+      if (local) setSavedAiData(local);
+    }
+  }, []);
+
+  console.log("savedAiData", savedAiData);
+
+  //saving chart data locally
   useEffect(() => {
     if (data?.data) {
       localStorage.setItem("chartData", JSON.stringify(data.data));
@@ -43,13 +63,14 @@ function Analytics() {
       if (local) setSavedData(JSON.parse(local));
     }
   }, [data]);
-  
+
   console.log("ChartData", savedData);
 
   return (
     <div>
       <GetAiSummary
         aiData={aiData}
+        savedAiData={savedAiData}
         setAiData={setAiData}
         uploadedFiles={uploadedFiles}
         data={data}

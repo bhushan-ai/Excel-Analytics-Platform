@@ -33,7 +33,7 @@ function Login() {
         toast.success(data.payload.msg);
         navigate("/upload/uploadfile");
       } else {
-        toast.error(data.payload.response.data.msg);
+        toast.error(data.payload.response.msg);
       }
     });
   }

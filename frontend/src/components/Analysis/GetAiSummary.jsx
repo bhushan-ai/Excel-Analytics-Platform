@@ -10,6 +10,7 @@ function GetAiSummary({
   aiData,
   setAiData,
   uploadedFiles,
+  savedAiData,
   data,
   isLoading,
   fileData,
@@ -75,7 +76,7 @@ function GetAiSummary({
         <textarea
           name="aisum"
           id="aisum"
-          value={aiData}
+          value={savedAiData}
           readOnly
           className="w-full max-w-lg h-48 p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none bg-gray-50"
         />
