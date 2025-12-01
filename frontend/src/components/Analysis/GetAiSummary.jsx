@@ -5,6 +5,7 @@ import { getAiSummary } from "@/store/AiSummary/aiSlice";
 import { Skeleton } from "../ui/skeleton";
 import { getFileData } from "@/store/upload/uploadSlice";
 import { toast } from "react-toastify";
+import { Textarea } from "../ui/textarea";
 
 function GetAiSummary({
   aiData,
@@ -72,13 +73,13 @@ function GetAiSummary({
             <Skeleton className="h-4 w-[250px]" />
           </div>
         </div>
-      ) : aiData ? (
-        <textarea
+      ) : savedAiData ? (
+        <Textarea
           name="aisum"
           id="aisum"
           value={savedAiData}
           readOnly
-          className="w-full max-w-lg h-48 p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none bg-gray-50"
+          className=" max-w-lg h-60 p-4 "
         />
       ) : null}
     </div>

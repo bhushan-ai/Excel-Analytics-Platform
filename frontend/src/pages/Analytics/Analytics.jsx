@@ -22,6 +22,7 @@ function Analytics() {
   useEffect(() => {
     if (aiData) {
       localStorage.setItem("aiData", aiData);
+      setSavedAiData(aiData)
     }
   }, [aiData]);
 
@@ -33,8 +34,6 @@ function Analytics() {
       if (local) setSavedAiData(local);
     }
   }, []);
-
-  console.log("savedAiData", savedAiData);
 
   //saving chart data locally
   useEffect(() => {
@@ -65,6 +64,19 @@ function Analytics() {
   }, [data]);
 
   console.log("ChartData", savedData);
+  console.log("savedAiData", savedAiData);
+  console.log("uploadedFiles?._id", uploadedFiles?._id);
+
+  useEffect(() => {
+    if (uploadedFiles?._id) {
+      localStorage.removeItem("chartData");
+      localStorage.removeItem("aiData");
+
+      //reset set
+      setSavedAiData("");
+      setSavedData([]);
+    }
+  }, [uploadedFiles?._id]);
 
   return (
     <div>
@@ -78,11 +90,14 @@ function Analytics() {
         fileData={fileData}
         setFileData={setFileData}
       />
-      <div className="m-10 flex items-center justify-center gap-5">
-        <Button onClick={() => barChart()}> Bar Chart</Button>
-        <Button onClick={() => pieChart()}> Pie Chart</Button>
-        <Button onClick={() => lineChart()}> Line Chart</Button>
-      </div>
+      {savedAiData && (
+        <div className="m-10 flex items-center justify-center gap-5">
+          <Button onClick={() => barChart()}> Bar Chart</Button>
+          <Button onClick={() => pieChart()}> Pie Chart</Button>
+          <Button onClick={() => lineChart()}> Line Chart</Button>
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center justify-center gap-5 m-2">
         {showBarChart && (
           <div className=" h-fit w-fit shadow-xl m-2 p-4">
